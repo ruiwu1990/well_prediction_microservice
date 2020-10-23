@@ -16,8 +16,8 @@ def index():
     # the file named index.html under templates folder
     return render_template('index.html', log_html = log)
 
-@app.route('/api/well_level_prediction', methods=['GET'])
-def api_well_prediction():
+@app.route("/api/well_level_prediction/<time_forward>", methods=['GET'])
+def api_well_prediction(time_forward='1'):
     '''
     front end should send json data on input parameters
     {
@@ -28,10 +28,11 @@ def api_well_prediction():
     
     }
     '''
+    predict_time_stamp = int(time_forward)
     TOTAL_WELL_NUM = 29
     prediction_list = []
     for i in range(TOTAL_WELL_NUM):
-        prediction_list.append({'well_id':i, 'prediction_value':i})
+        prediction_list.append({'well_id':i, 'prediction_value':i+predict_time_stamp})
 
     return json.dumps({'all_well_data':prediction_list})
     
