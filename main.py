@@ -58,11 +58,14 @@ def api_well_prediction_normal(time_forward='3',model_inputs=''):
     prediction = []
     for i in range(1, 30):
         if i in WELL_ID:
-                test_x = np.array(model_inputs[i*INPUT_SIZE:i*INPUT_SIZE+INPUT_SIZE])
+                test_x = np.array(model_inputs[(i-1)*INPUT_SIZE:i*INPUT_SIZE])
+                # test_x = np.array(model_inputs[i*INPUT_SIZE:i*INPUT_SIZE+INPUT_SIZE])
                 test_x = test_x.reshape(1,1,INPUT_SIZE)
                 model_save_name = 'models/Normal_Model/well_'+ str(i) +'_daily_'+time_forward+'_normal_model'
                 # print(model_save_name+"///////////////////")
                 # normal model
+                if i==28:
+                    print("this is for well 28:", test_x)
                 model = tf.keras.models.load_model(model_save_name)
                 prediction_tmp = model.predict(test_x)[0][0]
                 # print prediction
@@ -95,7 +98,7 @@ def api_well_prediction_extreme(time_forward='3',model_inputs=''):
     prediction = []
     for i in range(1, 30):
         if i in WELL_ID:
-                test_x = np.array(model_inputs[i*INPUT_SIZE:i*INPUT_SIZE+INPUT_SIZE])
+                test_x = np.array(model_inputs[(i-1)*INPUT_SIZE:i*INPUT_SIZE])
                 test_x = test_x.reshape(1,INPUT_SIZE)
                 model_save_name = 'models/Extreme_Model/well_'+ str(i) +'_daily_3_extreme_model.sav'
                 # normal model
