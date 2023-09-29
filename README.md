@@ -1,4 +1,4 @@
-Example 34: This project is a hello world Flask example.
+This project is for a sea grant.
 
 ## Quick Start
 ### Local Test Setup
